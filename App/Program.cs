@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Repository.Data;
 using Repository;
 using Service;
+using App.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 

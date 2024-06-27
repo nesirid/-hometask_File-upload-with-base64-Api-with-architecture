@@ -10,7 +10,9 @@ namespace Repository
         public static IServiceCollection AddRepositoryLayer(this IServiceCollection services)
         {
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-            services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IStudentRepository, StudentRepository>();
+
 
             return services;
         }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using FluentValidation.AspNetCore;
 using FluentValidation;
-using Service.DTOs.Admin.Countries;
+using Service.DTOs.Admin.Groups;
 using Service.Helpers;
 using Service.Services.Interface;
 using Service.Services;
@@ -18,9 +18,11 @@ namespace Service
             {
                 config.DisableDataAnnotationsValidation = true;
             });
-            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<IGroupService, GroupService>();
+            services.AddScoped<IStudentService, StudentService>();
 
-            services.AddScoped<IValidator<CountryCreateDto>, CountryCreateDtoValidator>();
+
+            services.AddScoped<IValidator<GroupCreateDto>, GroupCreateDtoValidator>();
             return services;
         }
 

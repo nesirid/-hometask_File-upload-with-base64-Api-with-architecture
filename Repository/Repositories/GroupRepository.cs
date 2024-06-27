@@ -5,9 +5,9 @@ using Repository.Repositories.Interfaces;
 
 namespace Repository.Repositories
 {
-    public class CountryRepository : BaseRepository<Country>, ICountryRepository
+    public class GroupRepository : BaseRepository<Group>, IGroupRepository
     {
-        public CountryRepository(AppDbContext context) : base(context)
+        public GroupRepository(AppDbContext context) : base(context)
         {
         
         }

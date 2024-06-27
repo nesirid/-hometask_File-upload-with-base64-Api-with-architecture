@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Service.DTOs.Admin.Countries;
+using Service.DTOs.Admin.Groups;
 using Service.Services.Interface;
 
 namespace App.Controllers.Admin
 {
-    public class CountryController : BaseController
+    public class GroupController : BaseController
     {
-        private readonly ICountryService _countryService;
+        private readonly IGroupService _groupService;
 
-        public CountryController(ICountryService countryService)
+        public GroupController(IGroupService groupService)
         {
-            _countryService = countryService;
+            _groupService = groupService;
         }
 
         [HttpGet]
@@ -19,7 +19,7 @@ namespace App.Controllers.Admin
         {
             try
             {
-                return Ok(await _countryService.GetAllAsync());
+                return Ok(await _groupService.GetAllAsync());
             }
             catch (Exception ex)
             {
@@ -32,7 +32,7 @@ namespace App.Controllers.Admin
         {
             try
             {
-                var country = await _countryService.GetByIdAsync(id);
+                var country = await _groupService.GetByIdAsync(id);
                 if (country == null)
                 {
                     return NotFound();
@@ -46,7 +46,7 @@ namespace App.Controllers.Admin
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CountryCreateDto request)
+        public async Task<IActionResult> Create([FromBody] GroupCreateDto request)
         {
             if (request == null)
             {
@@ -55,7 +55,7 @@ namespace App.Controllers.Admin
 
             try
             {
-                await _countryService.CreateAsync(request);
+                await _groupService.CreateAsync(request);
                 return CreatedAtAction(nameof(Create), new { response = "Data successfully created" });
             }
             catch (Exception ex)
@@ -65,7 +65,7 @@ namespace App.Controllers.Admin
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, [FromBody] CountryEditDto request)
+        public async Task<IActionResult> Edit(int id, [FromBody] GroupEditDto request)
         {
             if (request == null)
             {
@@ -73,13 +73,13 @@ namespace App.Controllers.Admin
             }
             try
             {
-                var existingCountry = await _countryService.GetByIdAsync(id);
+                var existingCountry = await _groupService.GetByIdAsync(id);
                 if (existingCountry == null)
                 {
                     return NotFound();
                 }
 
-                await _countryService.EditAsync(id, request);
+                await _groupService.EditAsync(id, request);
                 return Ok(new { response = "Data successfully updated" });
             }
             catch (Exception ex)
@@ -93,13 +93,13 @@ namespace App.Controllers.Admin
         {
             try
             {
-                var existingCountry = await _countryService.GetByIdAsync(id);
+                var existingCountry = await _groupService.GetByIdAsync(id);
                 if (existingCountry == null)
                 {
                     return NotFound();
                 }
 
-                await _countryService.DeleteAsync(id);
+                await _groupService.DeleteAsync(id);
                 return Ok(new { response = "Data successfully deleted" });
             }
             catch (Exception ex)

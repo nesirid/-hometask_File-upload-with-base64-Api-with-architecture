@@ -10,6 +10,6 @@ namespace Domain.Common
     {
         public int Id { get; set; }
         public bool SoftDelete { get; set; }
-        public DateTime CreatedData { get; set; }
+        public DateTime CreatedData { get; set; } = DateTime.UtcNow;
     }
 }

@@ -1,12 +1,8 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Drawing;
 using System.Reflection;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Repository.Data
 {
@@ -15,15 +11,36 @@ namespace Repository.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
 
-        public DbSet<Country> Countries { get; set; }
-
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Student> Students { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
             base.OnModelCreating(modelBuilder);
+
+
+
+            modelBuilder.Entity<GroupsStudents>()
+                .HasKey(t => new { t.GroupId, t.StudentId });
+            modelBuilder.Entity<GroupsStudents>()
+                .HasOne(t => t.Group)
+                .WithMany(t => t.GroupsStudents)
+                .HasForeignKey(t => t.GroupId);
+
+
+
+
+
+            modelBuilder.Entity<GroupsStudents>()
+                .HasKey(t => new { t.StudentId, t.GroupId });
+            modelBuilder.Entity<GroupsStudents>()
+                .HasOne(t => t.Student)
+                .WithMany(t => t.GroupsStudents)
+                .HasForeignKey(t => t.StudentId);
+
+
         }
     }
 }
